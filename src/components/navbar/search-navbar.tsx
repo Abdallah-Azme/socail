@@ -6,7 +6,7 @@ import { Separator } from "../ui/separator";
 export default function SearchNavbar() {
   return (
     <div className="flex relative">
-      <Input placeholder="Search" type="text" className="rounded-full w-96" />
+      <Input placeholder="Search" type="text" className="rounded-full w-96 " />
       <Separator
         orientation="vertical"
         className="absolute right-10 h-4/6 top-2 "

@@ -5,14 +5,15 @@ import UserAvatar from "./userAvatar";
 
 export default function Navbar() {
   return (
-    <header className="h-16">
-      <div className="fixed w-full top-0 left-0  z-10">
+    <header className="h-16  ">
+      <div className=""></div>
+      <div className="fixed bg-gray-900 w-full z-10">
         <div className="flex justify-between px-4 py-2 items-center ">
           <Logo />
           <SearchNavbar />
           <UserAvatar />
         </div>
-        <Separator />
+        <Separator className="mt-1.5" />
       </div>
     </header>
   );
