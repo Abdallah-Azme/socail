@@ -1,10 +1,4 @@
-import {
-  BriefcaseBusiness,
-  PawPrint,
-  Search,
-  Shirt,
-  Swords,
-} from "lucide-react";
+import { PawPrint, Search, Shirt, Store, Swords } from "lucide-react";
 
 export const listItems = [
   {
@@ -24,12 +18,7 @@ export const listItems = [
   },
   {
     label: "Items",
-    icon: BriefcaseBusiness,
+    icon: Store,
     link: "/item",
-  },
-  {
-    label: "Looking for",
-    icon: Search,
-    link: "/search",
   },
 ];

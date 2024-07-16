@@ -39,6 +39,8 @@
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
 
+    --brand: 46 75% 56.1%;
+
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
 
@@ -81,6 +83,9 @@
     --border: rgb(40, 49, 55);
     --input: rgb(40, 49, 55);
     --destructive: rgb(153, 42, 38);
+    --brand: rgb(227, 187, 59)
+     --bg-gray-900
+     --bg-gray-700
     --background: rgb(3, 9, 18);
   --card: rgb(3, 9, 18);
   --popover: rgb(3, 9, 18);
