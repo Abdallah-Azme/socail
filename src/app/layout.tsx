@@ -3,7 +3,9 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Sidebar from "@/components/sidebar/sidebar";
-import Header from "@/components/navbar/header";
+import Header from "@/components/header/header";
+import Providers from "@/providers/providers";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -25,15 +27,18 @@ export default function RootLayout({
         className={cn(
           "bg-background font-sans antialiased",
           "dark",
-          "h-[5000px]",
           fontSans.variable
         )}
       >
-        <Header />
-        <main className="flex w-screen">
-          <Sidebar />
-          <div className="container mx-auto max-w-[1400px]">{children}</div>
-        </main>
+        <Providers>
+          <Header />
+          <main className="flex relative ">
+            <Sidebar />
+            <div className="container mx-auto max-w-[1400px] grid-cols-1">
+              {children}
+            </div>
+          </main>
+        </Providers>
       </body>
     </html>
   );

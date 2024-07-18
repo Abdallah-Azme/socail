@@ -27,6 +27,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { useDialogStore } from "@/store/store";
+import { useMutation } from "@tanstack/react-query";
+import { fetchPost } from "@/lib/utils";
 
 const formSchema = z.object({
   email: z
@@ -40,6 +42,10 @@ const formSchema = z.object({
 });
 
 export default function UserLogin() {
+  const mutation = useMutation({
+    mutationFn: (data: object) => fetchPost("/api/v1/users/login", data),
+    mutationKey: ["login"],
+  });
   const { closeLoginDialog, isLoginDialogOpen, openLoginDialog } =
     useDialogStore();
 
@@ -52,7 +58,7 @@ export default function UserLogin() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    mutation.mutate(values);
     closeLoginDialog();
   }
 

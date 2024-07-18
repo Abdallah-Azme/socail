@@ -10,7 +10,7 @@ import {
 
 export default function NavItems() {
   return (
-    <ul className="flex flex-col gap-y-4 m-2 items-center lg:items-start ">
+    <ul className="flex pt-8 flex-col gap-y-4 m-2 items-center lg:items-start ">
       {listItems.map((item, i) => (
         <Link
           className="text-xl w-full hover:bg-gray-700  px-2 pt-2 pb-1 rounded-lg hover:text-brand"
