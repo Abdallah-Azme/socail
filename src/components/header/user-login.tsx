@@ -26,9 +26,12 @@ import { Icon } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
-import { useDialogStore } from "@/store/store";
+import { useStore } from "@/store/store";
 import { useMutation } from "@tanstack/react-query";
 import { fetchPost } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
 
 const formSchema = z.object({
   email: z
@@ -42,12 +45,16 @@ const formSchema = z.object({
 });
 
 export default function UserLogin() {
+  const router = useRouter();
+  const { toast } = useToast();
   const mutation = useMutation({
-    mutationFn: (data: object) => fetchPost("/api/v1/users/login", data),
+    mutationFn: (data: object) => fetchPost("/users/login", data),
     mutationKey: ["login"],
+    onSuccess: () => {
+      router.refresh();
+    },
   });
-  const { closeLoginDialog, isLoginDialogOpen, openLoginDialog } =
-    useDialogStore();
+  const { closeLoginDialog, isLoginDialogOpen, openLoginDialog } = useStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -12,14 +12,15 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000 * 10,
+        // staleTime: 60 * 1000 * 10,
+        staleTime: 60 * 10,
       },
-      dehydrate: {
-        // include pending queries in dehydration
-        shouldDehydrateQuery: (query) =>
-          defaultShouldDehydrateQuery(query) ||
-          query.state.status === "pending",
-      },
+      // dehydrate: {
+      //   // include pending queries in dehydration
+      //   shouldDehydrateQuery: (query) =>
+      //     defaultShouldDehydrateQuery(query) ||
+      //     query.state.status === "pending",
+      // },
     },
   });
 }

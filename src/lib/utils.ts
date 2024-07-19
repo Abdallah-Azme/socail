@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const BASE_BACKEND_URL = "http://localhost:1337";
+const BASE_BACKEND_URL = "http://localhost:1337/api/v1";
 export const fetchGet = async (url: string) => {
   const response = await fetch(BASE_BACKEND_URL + url, {
     method: "GET",
@@ -21,7 +21,7 @@ export const fetchGet = async (url: string) => {
   return response.json();
 };
 
-export const fetchPost = async (url: string, data: object) => {
+export const fetchPost = async (url: string, data: object = {}) => {
   const response = await fetch(BASE_BACKEND_URL + url, {
     method: "POST",
     headers: {

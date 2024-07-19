@@ -1,15 +1,23 @@
 import { create } from "zustand";
 
-type DialogState = {
+type DialogSignInState = {
   isLoginDialogOpen: boolean;
   openLoginDialog: () => void;
   closeLoginDialog: () => void;
 };
+type DialogUploadState = {
+  isUploadDialogOpen: boolean;
+  openUploadDialog: () => void;
+  closeUploadDialog: () => void;
+};
 
-type Store = DialogState;
+type Store = DialogSignInState & DialogUploadState;
 
-export const useDialogStore = create<Store>((set) => ({
+export const useStore = create<Store>((set) => ({
   isLoginDialogOpen: false,
   openLoginDialog: () => set({ isLoginDialogOpen: true }),
   closeLoginDialog: () => set({ isLoginDialogOpen: false }),
+  isUploadDialogOpen: false,
+  openUploadDialog: () => set({ isUploadDialogOpen: true }),
+  closeUploadDialog: () => set({ isUploadDialogOpen: false }),
 }));

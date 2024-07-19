@@ -10,7 +10,7 @@ import UserAuth from "./user-auth";
 import AlertWarring from "../alert-warrning";
 
 export default async function Header() {
-  const email = await auth(cookies().get("refresh_token")?.value);
+  const email = await auth(cookies().get("refreshToken")?.value);
   return (
     <header className="sticky col-span-2 row-span-1 h-fit bg-gray-900 top-0 w-auto z-50 ">
       <div className="flex justify-between px-4 py-2 items-center ">
