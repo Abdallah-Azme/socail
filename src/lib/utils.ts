@@ -21,13 +21,26 @@ export const fetchGet = async (url: string) => {
   return response.json();
 };
 
-export const fetchPost = async (url: string, data: object = {}) => {
+export const fetchPost = async (url: string, data: object) => {
   const response = await fetch(BASE_BACKEND_URL + url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    cache: "no-store",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
+
+export const fetchPostForm = async (url: string, data: FormData) => {
+  const response = await fetch(BASE_BACKEND_URL + url, {
+    method: "POST",
+    body: data,
     cache: "no-store",
     credentials: "include",
   });

@@ -1,33 +1,28 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import UploadPetForm from "@/components/upload-forms/upload-pet-form";
+import UploadPetCard from "@/components/cards/upload-pet-card";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function UploadPage() {
   return (
-    <Card className="mt-10 max-w-5xl mx-auto">
-      <CardHeader>
-        <CardTitle>Have something to sell?</CardTitle>
-        <CardDescription>
-          You can upload anything you want to sell or trade. Be careful who you
-          trade with and trust no one. If you get scammed, I cannot help you.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <UploadPetForm />
-      </CardContent>
-      <CardFooter>
-        <p>
-          Only game-related items are allowed to be shared here, so let's keep
-          this website safe and clean.
-        </p>
-      </CardFooter>
-    </Card>
+    <Tabs defaultValue="pet" className="mt-10 max-w-4xl mx-auto">
+      <TabsList className="grid w-full grid-cols-4">
+        <TabsTrigger value="pet">Pet</TabsTrigger>
+        <TabsTrigger value="gear">Gear</TabsTrigger>
+        <TabsTrigger value="garment">garment</TabsTrigger>
+        <TabsTrigger value="item">item</TabsTrigger>
+      </TabsList>
+      <TabsContent value="pet">
+        <UploadPetCard />
+      </TabsContent>
+      <TabsContent value="gear">
+        <UploadPetCard />
+      </TabsContent>
+      <TabsContent value="garment">
+        <UploadPetCard />
+      </TabsContent>
+      <TabsContent value="item">
+        <UploadPetCard />
+      </TabsContent>
+    </Tabs>
   );
 }

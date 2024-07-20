@@ -24,18 +24,6 @@ import {
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
-import { fetchPost, fetchPostForm } from "@/lib/utils";
-
-interface FormDataType {
-  price: string;
-  type: string;
-  star: string;
-  title: string;
-  server: string;
-  description: string;
-  photos: [File, ...File[]];
-}
 
 const fileSchema = z
   .instanceof(File)
@@ -68,31 +56,6 @@ const petSchema = z.object({
 export default function UploadPetForm() {
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const mutation = useMutation({
-    mutationFn: async (data: {
-      price: string;
-      type: string;
-      star: string;
-      title: string;
-      server: string;
-      description: string;
-      photos: [File, ...File[]];
-    }) => {
-      const formData = new FormData();
-      // Append each key-value pair to the FormData object
-      (Object.keys(data) as (keyof FormDataType)[]).forEach((key) => {
-        if (Array.isArray(data[key])) {
-          // If the value is an array, iterate over it and append each item
-          (data[key] as File[]).forEach((item) => {
-            formData.append(key, item);
-          });
-        } else {
-          formData.append(key, data[key] as string);
-        }
-      });
-      fetchPostForm("/pets", formData);
-    },
-  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
@@ -102,7 +65,6 @@ export default function UploadPetForm() {
     setFilePreviews(previews);
   };
   function onSubmit(values: z.infer<typeof petSchema>) {
-    mutation.mutate(values);
     console.log(values);
   }
 
@@ -115,7 +77,6 @@ export default function UploadPetForm() {
       star: "",
       title: "",
       type: "",
-      photos: undefined,
     },
   });
   return (
@@ -262,6 +223,8 @@ export default function UploadPetForm() {
               </FormItem>
             )}
           />
+
+          {/*  */}
 
           {/* Display Selected Photos */}
           {filePreviews.length > 0 && (
