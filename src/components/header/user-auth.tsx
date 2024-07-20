@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import UserAvatar from "./userAvatar";
-import UserLogin from "./user-login";
+"use client";
+import { useStore } from "@/store/store";
 import UploadButton from "./upload-button";
+import UserSignin from "./user-signin";
+import UserAvatar from "./userAvatar";
+import { Button } from "../ui/button";
+import UserSignup from "./user-signup";
 
 export default function UserAuth({ email }: { email: string | null }) {
+  const { openSigninDialog } = useStore();
   return (
     <div className="">
       {email ? (
@@ -12,7 +16,13 @@ export default function UserAuth({ email }: { email: string | null }) {
           <UserAvatar />
         </div>
       ) : (
-        <UserLogin />
+        <>
+          <Button className="bg-brand" onClick={openSigninDialog}>
+            Log In.
+          </Button>
+          <UserSignin />
+          <UserSignup />
+        </>
       )}
     </div>
   );

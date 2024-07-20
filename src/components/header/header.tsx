@@ -1,7 +1,7 @@
 import Logo from "@/components/logo";
 import { Separator } from "../ui/separator";
 import SearchNavbar from "./search-navbar";
-import UserLogin from "./user-login";
+import UserLogin from "./user-signup";
 import { cookies } from "next/headers";
 import { auth } from "@/actions/auth";
 import { Avatar } from "../ui/avatar";
