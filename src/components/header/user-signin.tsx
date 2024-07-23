@@ -25,7 +25,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
-import UserSignup from "./user-signup";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   email: z
@@ -39,12 +39,21 @@ const formSchema = z.object({
 });
 
 export default function UserSignin() {
+  const { toast } = useToast();
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: object) => fetchPost("/users/signin", data),
-    mutationKey: ["login"],
+    mutationKey: ["signin"],
     onSuccess: () => {
+      toast({ description: "Signin successful", duration: 2000 });
       router.refresh();
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        description: error.message,
+        duration: 2000,
+      });
     },
   });
   const {
@@ -64,7 +73,6 @@ export default function UserSignin() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutation.mutate(values);
-    closeSigninDialog();
   }
 
   function onSignUp() {
@@ -126,7 +134,7 @@ export default function UserSignin() {
             <Button className="w-full mt-2">Sign in</Button>
           </form>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="block">
           <Separator />
           <Button onClick={onSignUp} variant={"link"}>
             Don't have an account? Sign up.

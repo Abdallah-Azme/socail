@@ -1,11 +1,11 @@
+import Header from "@/components/header/header";
+import Sidebar from "@/components/sidebar/sidebar";
+import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@/lib/utils";
+import Providers from "@/providers/providers";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import Sidebar from "@/components/sidebar/sidebar";
-import Header from "@/components/header/header";
-import Providers from "@/providers/providers";
-import { QueryClientProvider } from "@tanstack/react-query";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,6 +38,7 @@ export default function RootLayout({
               {children}
             </div>
           </main>
+          <Toaster />
         </Providers>
       </body>
     </html>

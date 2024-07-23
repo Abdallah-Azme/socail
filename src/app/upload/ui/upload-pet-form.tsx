@@ -9,89 +9,25 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { petTypeArray, servers } from "@/constants";
-import { fetchPostForm } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { Textarea } from "../ui/textarea";
-
-interface FormDataType {
-  price: string;
-  type: string;
-  star: string;
-  title: string;
-  server: string;
-  description: string;
-  photos: [File, ...File[]];
-}
-
-const fileSchema = z
-  .instanceof(File)
-  .refine((file) => file.type.startsWith("image/"), {
-    message: "Invalid file type. Only images are allowed.",
-  })
-  .refine((file) => file.size <= 1 * 1024 * 1024, {
-    message: "File size too large. Maximum size is 1MB per file.",
-  });
-
-const petSchema = z.object({
-  price: z
-    .string()
-    .refine((val) => Number(val), { message: "The price has to be a number" }),
-  star: z
-    .string()
-    .refine((val) => Number(val), { message: "The star has to be a number" }),
-  title: z.string().max(50, "The title cannot be more than 50 characters."),
-  type: z.string().max(30, "The type cannot be more than 30 characters."),
-  server: z.string().max(30, "Enter a valid server."),
-  description: z
-    .string()
-    .max(300, "The description cannot be more than 300 characters."),
-  photos: z
-    .array(fileSchema)
-    .nonempty({ message: "At least one photo is required" })
-    .max(4, { message: "You can upload a maximum of 4 photos." }),
-});
+} from "../../../components/ui/select";
+import { Textarea } from "../../../components/ui/textarea";
+import { petSchema, usePetForm, usePostForm } from "../hooks/hook";
 
 export default function UploadPetForm() {
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const mutation = useMutation({
-    mutationFn: async (data: {
-      price: string;
-      type: string;
-      star: string;
-      title: string;
-      server: string;
-      description: string;
-      photos: [File, ...File[]];
-    }) => {
-      const formData = new FormData();
-      // Append each key-value pair to the FormData object
-      (Object.keys(data) as (keyof FormDataType)[]).forEach((key) => {
-        if (Array.isArray(data[key])) {
-          // If the value is an array, iterate over it and append each item
-          (data[key] as File[]).forEach((item) => {
-            formData.append(key, item);
-          });
-        } else {
-          formData.append(key, data[key] as string);
-        }
-      });
-      fetchPostForm("/pets", formData);
-    },
-  });
+  const { form } = usePetForm();
+  const { mutation } = usePostForm(form);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
@@ -100,23 +36,16 @@ export default function UploadPetForm() {
     const previews = selectedFiles.map((file) => URL.createObjectURL(file));
     setFilePreviews(previews);
   };
+
   function onSubmit(values: z.infer<typeof petSchema>) {
-    mutation.mutate(values);
-    console.log(values);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        setFiles([]);
+        setFilePreviews([]);
+      },
+    });
   }
 
-  const form = useForm<z.infer<typeof petSchema>>({
-    resolver: zodResolver(petSchema),
-    defaultValues: {
-      description: "",
-      price: "",
-      server: "",
-      star: "",
-      title: "",
-      type: "",
-      photos: undefined,
-    },
-  });
   return (
     <div className="">
       <Form {...form}>
@@ -282,7 +211,11 @@ export default function UploadPetForm() {
               </div>
             </div>
           )}
-          <Button type="submit" className="w-full mt-2">
+          <Button
+            type="submit"
+            disabled={mutation.isPending}
+            className="w-full mt-2"
+          >
             Upload
           </Button>
         </form>

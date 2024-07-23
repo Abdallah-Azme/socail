@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import UploadPetForm from "@/components/upload-forms/upload-pet-form";
+import UploadPetForm from "@/app/upload/ui/upload-pet-form";
 export default function UploadPetCard() {
   return (
     <Card className="mt-10 max-w-4xl mx-auto">

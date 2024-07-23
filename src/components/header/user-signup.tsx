@@ -14,6 +14,7 @@ import { z } from "zod";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -32,6 +33,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import UserAvatar from "./userAvatar";
+import { Separator } from "../ui/separator";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   email: z
@@ -61,16 +64,30 @@ const formSchema = z.object({
 });
 
 export default function UserSignup() {
+  const { toast } = useToast();
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: object) => fetchPost("/users/signup", data),
     mutationKey: ["login"],
     onSuccess: () => {
       router.refresh();
+      toast({ description: "Signup successful", duration: 2000 });
+      closeSignupDialog();
+    },
+    onError: () => {
+      toast({
+        description: "Sorry but this email already under use",
+        variant: "destructive",
+        duration: 2000,
+      });
     },
   });
-  const { isSignupDialogOpen, openSignupDialog, closeSignupDialog } =
-    useStore();
+  const {
+    isSignupDialogOpen,
+    openSignupDialog,
+    closeSignupDialog,
+    openSigninDialog,
+  } = useStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,7 +103,11 @@ export default function UserSignup() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutation.mutate(values);
+  }
+
+  function onSignin() {
     closeSignupDialog();
+    openSigninDialog();
   }
 
   return (
@@ -218,6 +239,12 @@ export default function UserSignup() {
             <Button className="w-full mt-2">Sign Up</Button>
           </form>
         </Form>
+        <DialogFooter className="block">
+          <Separator />
+          <Button onClick={onSignin} variant={"link"}>
+            Already have an account? Sign in.
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
