@@ -14,7 +14,7 @@ export default function PetDialogBody({
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["fetch-pet", pet.id],
     queryFn: async () => fetchGet(`/pets/${pet.id}`),
-    // enabled: isOpen,
+    enabled: isOpen,
   });
   if (isLoading) {
     return <span>Loading...</span>;

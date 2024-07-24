@@ -75,7 +75,8 @@ export default function UploadGearForm() {
                     <FormControl>
                       <Input
                         type="number"
-                        min="0"
+                        min={0}
+                        max={25}
                         placeholder="12"
                         {...field}
                       />

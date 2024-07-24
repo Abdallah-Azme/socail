@@ -24,7 +24,7 @@ export default function PetCardItem({ pet }: { pet: PetType }) {
 
   return (
     <Card className="h-fit max-w-72  relative" onClick={onToggleCardDialog}>
-      <CardHeader className="p-4">
+      <CardHeader className="p-4 h-20">
         <CardTitle className="break-words">{pet.type}</CardTitle>
         <CardDescription className="break-words line-clamp-2">
           {pet.description}
@@ -35,10 +35,14 @@ export default function PetCardItem({ pet }: { pet: PetType }) {
           <Image fill src={pet?.photos[0]?.imageUrl} alt="image" />
         </div>
       </CardContent>
-      <CardFooter className="flex p-2 justify-between">
+      <CardFooter className="flex p-2 justify-between text-sm">
         <p className="flex justify-between w-full">
-          <span>Server :{pet.server}</span>
-          <span> Price : {pet.price}</span>
+          <span>
+            <span className="">🌏</span> :{pet.server}
+          </span>
+          <span className="min-w-24">
+            <span>💵</span>: {pet.price} Eps
+          </span>
         </p>
       </CardFooter>
     </Card>

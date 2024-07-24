@@ -13,8 +13,8 @@ export default function GearDialogBody({
 }) {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["fetch-pet", gear.id],
-    queryFn: async () => fetchGet(`/pets/${gear.id}`),
-    // enabled: isOpen,
+    queryFn: async () => fetchGet(`/gears/${gear.id}`),
+    enabled: isOpen,
   });
   if (isLoading) {
     return <span>Loading...</span>;

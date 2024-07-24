@@ -19,23 +19,27 @@ export default function GearDialogContentBody({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Title: {gear.title}</CardTitle>
-        <CardDescription>Description: {gear.description}</CardDescription>
+        <CardTitle className="text-brand">{gear.title}</CardTitle>
+        <CardDescription>{gear.description}</CardDescription>
       </CardHeader>
       <Separator className="w-11/12 mx-auto mb-2" />
-      <CardContent className="flex gap-y-2 flex-col">
-        <p className="">Element: {gear.element}</p>
-        <p className="">server: {gear.server}</p>
-        <p className="">price: {gear.price} Eps</p>
+      <CardContent className=" gap-y-2 w-full">
+        <div className="flex flex-col p-2 text-lg">
+          <div className="flex flex-row">
+            <p className="flex-1">💵: {gear.price} Eps</p>
+            <p className="flex-1">🌏: {gear.server}</p>
+          </div>
+          <div className="flex flex-row">
+            <p className="flex-1">
+              ⚡: {gear.maxElementValue} - {gear.element}
+            </p>
+            <p className="flex-1">🧙‍♂️: {gear.characterClass}</p>
+          </div>
+        </div>
         <Separator className="w-11/12 mx-auto mb-2" />
-        <div>
+        <div className="space-y-2">
           <p>Character name: {gear.gearOwner.characterName}</p>
           <p>Contact info: {gear.gearOwner.contactInfo}</p>
-          <Button asChild variant={"link"} className="w-full">
-            <Link href={`/users/${gear.gearOwner.id}`}>
-              Check the seller profile
-            </Link>
-          </Button>
         </div>
         <Separator className="w-11/12 mx-auto mt-2 mb-2" />
       </CardContent>
