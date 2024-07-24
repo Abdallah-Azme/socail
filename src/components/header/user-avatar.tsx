@@ -17,7 +17,7 @@ export default function UserAvatar() {
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: async () => fetchPost("/users/logout"),
+    mutationFn: async () => fetchPost("/users/logout", {}),
     onSuccess: () => {
       router.refresh();
     },

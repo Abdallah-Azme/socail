@@ -14,6 +14,7 @@ export default function InfiniteScroll({
       console.log(" on change got called");
       if (inView) {
         onNextPage();
+        console.log(" on change got called from the in view");
       }
     },
   });

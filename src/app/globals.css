@@ -100,3 +100,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+.dialog-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.dialog-content {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.dialog-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dialog-content::-webkit-scrollbar-track {
+  background: var(--color-brand);
+}
+
+.dialog-content::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+
+.dialog-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Custom scrollbar for IE, Edge and Firefox */
+.dialog-content {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #111;
+}

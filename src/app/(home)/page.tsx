@@ -13,12 +13,12 @@ export default async function Home() {
 
   queryClient.prefetchInfiniteQuery({
     queryKey: ["fetchPet"],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam = undefined }) => {
       return fetchGet(`/pets?cursor=${pageParam}`);
     },
     //@ts-ignore
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    initialPageParam: undefined,
   });
 
   return (

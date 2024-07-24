@@ -12,7 +12,13 @@ type DialogSignupState = {
   closeSignupDialog: () => void;
 };
 
-type Store = DialogSigninState & DialogSignupState;
+type DialogCardState = {
+  openCardId: null | string;
+  openCardDialog: (id: string) => void;
+  closeCardDialog: () => void;
+};
+
+type Store = DialogSigninState & DialogSignupState & DialogCardState;
 
 export const useStore = create<Store>((set) => ({
   // sign in dialog states
@@ -24,4 +30,9 @@ export const useStore = create<Store>((set) => ({
   isSignupDialogOpen: false,
   openSignupDialog: () => set({ isSignupDialogOpen: true }),
   closeSignupDialog: () => set({ isSignupDialogOpen: false }),
+
+  // card dialog
+  openCardId: null,
+  openCardDialog: (id) => set({ openCardId: id }),
+  closeCardDialog: () => set({ openCardId: null }),
 }));

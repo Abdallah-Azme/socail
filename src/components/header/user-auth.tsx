@@ -2,7 +2,7 @@
 import { useStore } from "@/store/store";
 import UploadButton from "./upload-button";
 import UserSignin from "./user-signin";
-import UserAvatar from "./userAvatar";
+import UserAvatar from "./user-avatar";
 import { Button } from "../ui/button";
 import UserSignup from "./user-signup";
 

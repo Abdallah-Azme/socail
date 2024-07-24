@@ -32,7 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import UserAvatar from "./userAvatar";
+import UserAvatar from "./user-avatar";
 import { Separator } from "../ui/separator";
 import { useToast } from "../ui/use-toast";
 
