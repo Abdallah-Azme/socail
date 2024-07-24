@@ -1,5 +1,5 @@
 import { PawPrint, Search, Shirt, Store, Swords } from "lucide-react";
-
+// for the header
 export const listItems = [
   {
     label: "Pets",
@@ -48,6 +48,7 @@ export const servers = [
   "LostLand",
 ];
 
+// for the pet
 export enum PetType {
   ZHAO_YUN = "ZHAO_YUN",
   ZHANG_FEI = "ZHANG_FEI",
@@ -317,5 +318,68 @@ export enum PetType {
   ARIES_CARDY = "ARIES_CARDY",
   ARIES_MUBA = "ARIES_MUBA",
 }
-
 export const petTypeArray: string[] = Object.values(PetType);
+
+// for the gear
+export const gears = [
+  "ARMOR",
+  "BOOTS",
+  "BRACELET",
+  "WEAPON",
+  "HELMET",
+  "NECKLACE",
+];
+
+export const characterClass = [
+  "MAGE",
+  "WARRIOR",
+  "NECROMANCER",
+  "PALADIN",
+  "VAMPIRE",
+  "SHADOWKNIGHT",
+  "SWORDMASTER",
+  "RANGER",
+];
+
+export const elementTypeArray = ["WATER", "WIND", "EARTH", "FIRE"];
+export const equipmentTypeArray = [
+  "NECKLACE",
+  "HELMET",
+  "WEAPON",
+  "BRACELET",
+  "BOOTS",
+  "ARMOR",
+];
+export const characterClassTypeArray = [
+  "MAGE",
+  "WARRIOR",
+  "NECROMANCER",
+  "PALADIN",
+  "VAMPIRE",
+  "SHADOWKNIGHT",
+  "SWORDMASTER",
+  "RANGER",
+];
+
+// {
+//   Equipment: {
+//     NECKLACE: 'NECKLACE',
+//     HELMET: 'HELMET',
+//     WEAPON: 'WEAPON',
+//     BRACELET: 'BRACELET',
+//     BOOTS: 'BOOTS',
+//     ARMOR: 'ARMOR'
+//   }
+// }
+// {
+//   CharacterClass: {
+//     MAGE: 'MAGE',
+//     WARRIOR: 'WARRIOR',
+//     NECROMANCER: 'NECROMANCER',
+//     PALADIN: 'PALADIN',
+//     VAMPIRE: 'VAMPIRE',
+//     SHADOWKNIGHT: 'SHADOWKNIGHT',
+//     SWORDMASTER: 'SWORDMASTER',
+//     RANGER: 'RANGER'
+//   }
+// }

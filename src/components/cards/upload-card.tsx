@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import UploadPetForm from "@/app/upload/ui/upload-pet-form";
-export default function UploadPetCard() {
+import { ReactNode } from "react";
+export default function UploadCard({ children }: { children: ReactNode }) {
   return (
     <Card className="mt-10 max-w-4xl mx-auto">
       <CardHeader>
@@ -20,7 +21,8 @@ export default function UploadPetCard() {
 
       {/* Content of the card 'the form' */}
       <CardContent>
-        <UploadPetForm />
+        {children}
+        {/* <UploadPetForm /> */}
       </CardContent>
       <CardFooter>
         <p>

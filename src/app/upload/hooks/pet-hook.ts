@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
-interface FormDataType {
+interface FormPetDataType {
   price: string;
   type: string;
   star: string;
@@ -15,36 +15,14 @@ interface FormDataType {
   photos: [File, ...File[]];
 }
 
-export const usePostForm = (
-  form: UseFormReturn<
-    {
-      price: string;
-      type: string;
-      star: string;
-      title: string;
-      server: string;
-      description: string;
-      photos: [File, ...File[]];
-    },
-    any,
-    undefined
-  >
-) => {
+export const usePostPetForm = (form: UseFormReturn<FormPetDataType>) => {
   const { toast } = useToast();
 
   const mutation = useMutation({
     mutationKey: ["uploadPet"],
-    mutationFn: async (data: {
-      price: string;
-      type: string;
-      star: string;
-      title: string;
-      server: string;
-      description: string;
-      photos: [File, ...File[]];
-    }) => {
+    mutationFn: async (data: FormPetDataType) => {
       const formData = new FormData();
-      (Object.keys(data) as (keyof FormDataType)[]).forEach((key) => {
+      (Object.keys(data) as (keyof FormPetDataType)[]).forEach((key) => {
         if (Array.isArray(data[key])) {
           (data[key] as File[]).forEach((item) => {
             formData.append(key, item);
@@ -54,11 +32,9 @@ export const usePostForm = (
         }
       });
       const result = await fetchPostForm("/pets", formData);
-      console.log("Mutation success:", result);
       return result;
     },
     onError: (error) => {
-      console.log({ error });
       toast({ description: error.message, variant: "destructive" });
     },
     onSuccess: () => {

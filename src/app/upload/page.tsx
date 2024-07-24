@@ -1,6 +1,9 @@
-import UploadPetCard from "@/components/cards/upload-pet-card";
+import UploadCard from "@/components/cards/upload-card";
+import UploadGearCard from "@/components/cards/upload-gear-card";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import UploadPetForm from "./ui/upload-pet-form";
+import UploadGearForm from "./ui/upload-gear-form";
 
 export default function UploadPage() {
   return (
@@ -12,16 +15,24 @@ export default function UploadPage() {
         <TabsTrigger value="item">item</TabsTrigger>
       </TabsList>
       <TabsContent value="pet">
-        <UploadPetCard />
+        <UploadCard>
+          <UploadPetForm />
+        </UploadCard>
       </TabsContent>
       <TabsContent value="gear">
-        <UploadPetCard />
+        <UploadCard>
+          <UploadGearForm />
+        </UploadCard>
       </TabsContent>
       <TabsContent value="garment">
-        <UploadPetCard />
+        <UploadCard>
+          <UploadPetForm />
+        </UploadCard>
       </TabsContent>
       <TabsContent value="item">
-        <UploadPetCard />
+        <UploadCard>
+          <UploadPetForm />
+        </UploadCard>
       </TabsContent>
     </Tabs>
   );

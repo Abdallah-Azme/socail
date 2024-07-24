@@ -34,8 +34,6 @@ export default function PetCards() {
   }
 
   const allPets = data.pages.flatMap((page) => page.data) as PetType[];
-  console.log({ allPets });
-  // const pets = data.pages.flatMap((page, i) => page)[0].data ;
 
   return (
     <InfiniteScroll

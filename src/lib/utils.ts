@@ -48,28 +48,31 @@ export const fetchPost = async (url: string, data: object) => {
 };
 
 export const fetchPostForm = async (url: string, data: FormData) => {
-  try {
-    const response = await fetch(BASE_BACKEND_URL + url, {
-      method: "POST",
-      body: data,
-      cache: "no-store",
-      credentials: "include",
-    });
+  const response = await fetch(BASE_BACKEND_URL + url, {
+    method: "POST",
+    body: data,
+    cache: "no-store",
+    credentials: "include",
+  });
 
-    console.log("Response:", response);
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      try {
-        const parsedError = JSON.parse(errorMessage);
-        throw new Error(parsedError.message || "Unknown error occurred");
-      } catch (e) {
-        throw new Error("Failed to parse error response");
-      }
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    try {
+      const parsedError = JSON.parse(errorMessage);
+      throw new Error(parsedError.message || "Unknown error occurred");
+    } catch (e: any) {
+      console.error({ e });
+      throw new Error(e.message);
     }
-
-    return response.json();
-  } catch (error: any) {
-    throw new Error(error.message);
   }
+  return response.json();
 };
+
+interface ErrorObject {
+  path: string;
+  message: string;
+}
+
+function parseError(errors: ErrorObject[]): string {
+  return errors.map((error) => `${error.path}: ${error.message}`).join(", ");
+}

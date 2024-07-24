@@ -8,10 +8,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { petTypeArray, servers } from "@/constants";
+import {
+  characterClass,
+  characterClassTypeArray,
+  elementTypeArray,
+  equipmentTypeArray,
+  gears,
+  servers,
+} from "@/constants";
 import Image from "next/image";
 import { useState } from "react";
-import { z } from "zod";
+import { getParsedType, z } from "zod";
 import { Button } from "../../../components/ui/button";
 import {
   Select,
@@ -21,13 +28,13 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { Textarea } from "../../../components/ui/textarea";
-import { petSchema, usePetForm, usePostPetForm } from "../hooks/pet-hook";
+import { gearSchema, useGearForm, useGearPostForm } from "../hooks/gear-hook";
 
-export default function UploadPetForm() {
+export default function UploadGearForm() {
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const { form } = usePetForm();
-  const { mutation } = usePostPetForm(form);
+  const { form } = useGearForm();
+  const { mutation } = useGearPostForm(form);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
@@ -37,11 +44,17 @@ export default function UploadPetForm() {
     setFilePreviews(previews);
   };
 
-  function onSubmit(values: z.infer<typeof petSchema>) {
+  function onSubmit(values: z.infer<typeof gearSchema>) {
     mutation.mutate(values, {
       onSuccess: () => {
         setFiles([]);
         setFilePreviews([]);
+        form.reset({
+          server: "",
+          gearType: "",
+          characterClass: "",
+          element: "",
+        });
       },
     });
   }
@@ -52,20 +65,54 @@ export default function UploadPetForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <div className="flex flex-col lg:flex-row  gap-3">
             <div className="flex gap-3 flex-grow">
-              {/* Star */}
+              {/* max element value */}
               <FormField
                 control={form.control}
-                name="star"
+                name="maxElementValue"
                 render={({ field }) => (
-                  <FormItem className=" flex-grow">
-                    <FormLabel>Stars</FormLabel>
+                  <FormItem className="  flex-grow">
+                    <FormLabel>Max element value</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="200" {...field} />
+                      <Input
+                        type="number"
+                        min="0"
+                        placeholder="12"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              {/* Element */}
+              <FormField
+                control={form.control}
+                name="element"
+                render={({ field }) => (
+                  <FormItem className="flex-1 flex-grow">
+                    <FormLabel>Element</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl className="flex-1">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an element" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {elementTypeArray.map((element) => (
+                          <SelectItem key={element} value={element}>
+                            {element}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               {/* price */}
               <FormField
                 control={form.control}
@@ -81,8 +128,36 @@ export default function UploadPetForm() {
                 )}
               />
             </div>
-            {/* Server */}
             <div className="flex gap-3 flex-grow">
+              {/* gear type */}
+              <FormField
+                control={form.control}
+                name="gearType"
+                render={({ field }) => (
+                  <FormItem className="flex-1 flex-grow">
+                    <FormLabel>Gear type</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a gear type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {equipmentTypeArray.map((gear) => (
+                          <SelectItem key={gear} value={gear}>
+                            {gear}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* Server */}
               <FormField
                 control={form.control}
                 name="server"
@@ -110,27 +185,26 @@ export default function UploadPetForm() {
                   </FormItem>
                 )}
               />
-
-              {/* pet type */}
+              {/* class */}
               <FormField
                 control={form.control}
-                name="type"
+                name="characterClass"
                 render={({ field }) => (
                   <FormItem className="flex-1 flex-grow">
-                    <FormLabel>Pet type</FormLabel>
+                    <FormLabel>Class</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <FormControl>
+                      <FormControl className="flex-1">
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a pet type" />
+                          <SelectValue placeholder="Select class" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {petTypeArray.map((petType) => (
-                          <SelectItem key={petType} value={petType}>
-                            {petType}
+                        {characterClassTypeArray.map((cla) => (
+                          <SelectItem key={cla} value={cla}>
+                            {cla}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -149,7 +223,7 @@ export default function UploadPetForm() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Sell this pet." {...field} />
+                  <Input placeholder="Sell this gear." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -164,7 +238,7 @@ export default function UploadPetForm() {
                 <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Sell this pet or trade for higher star same type or other types"
+                    placeholder="Sell this gear or trade for higher elements same class."
                     {...field}
                   />
                 </FormControl>
