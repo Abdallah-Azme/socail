@@ -3,10 +3,11 @@ import { useStore } from "@/store/store";
 
 import { PetType } from "@/constants/types";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import CardItem from "../shared/card-item";
-import DialogBody from "./dialog-body";
-import { Separator } from "@radix-ui/react-separator";
-export default function DialogCard({ pet }: { pet: PetType }) {
+import PetCardItem from "./pet-card-item";
+import DialogBody from "./pet-dialog-body";
+import PetDialogBody from "./pet-dialog-body";
+
+export default function PetDialogCard({ pet }: { pet: PetType }) {
   const { openCardDialog, openCardId, closeCardDialog } = useStore();
   const isOpen = openCardId === pet.id;
 
@@ -20,14 +21,14 @@ export default function DialogCard({ pet }: { pet: PetType }) {
   return (
     <Dialog open={isOpen} onOpenChange={onToggleCardDialog}>
       <DialogTrigger asChild>
-        <CardItem pet={pet} />
+        <PetCardItem pet={pet} />
       </DialogTrigger>
       <DialogContent
         aria-describedby={undefined}
         className="dialog-content flex flex-col items-center w-full sm:max-w-[620px] md:max-w-[700px] max-w-[700px] overflow-y-scroll max-h-full"
       >
         <DialogTitle className="text-brand">{pet.type}</DialogTitle>
-        <DialogBody pet={pet} isOpen={isOpen} />
+        <PetDialogBody pet={pet} isOpen={isOpen} />
       </DialogContent>
     </Dialog>
   );

@@ -1,12 +1,10 @@
-import React from "react";
-import CarouselDialogCard from "./carousel-dialog-card";
-import { useQuery } from "@tanstack/react-query";
-import { fetchGet } from "@/lib/utils";
-import DialogContentBody from "./dialog-body-content";
 import { PetType } from "@/constants/types";
-import { Separator } from "../ui/separator";
+import { fetchGet } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import CarouselDialogCard from "./pet-carousel-dialog-card";
+import DialogContentBody from "./pet-dialog-body-content";
 
-export default function DialogBody({
+export default function PetDialogBody({
   pet,
   isOpen,
 }: {

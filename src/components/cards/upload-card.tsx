@@ -10,7 +10,7 @@ import UploadPetForm from "@/app/upload/ui/upload-pet-form";
 import { ReactNode } from "react";
 export default function UploadCard({ children }: { children: ReactNode }) {
   return (
-    <Card className="mt-10 max-w-4xl mx-auto">
+    <Card className="mt-10 w-auto max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle>Have something to sell?</CardTitle>
         <CardDescription>
@@ -25,7 +25,7 @@ export default function UploadCard({ children }: { children: ReactNode }) {
         {/* <UploadPetForm /> */}
       </CardContent>
       <CardFooter>
-        <p>
+        <p className="text-destructive">
           Only game-related items are allowed to be shared here, so let's keep
           this website safe and clean.
         </p>

@@ -63,15 +63,15 @@ export default function UploadGearForm() {
     <div className="">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-          <div className="flex flex-col lg:flex-row  gap-3">
+          <div className="flex flex-col   gap-3">
             <div className="flex gap-3 flex-grow">
               {/* max element value */}
               <FormField
                 control={form.control}
                 name="maxElementValue"
                 render={({ field }) => (
-                  <FormItem className="  flex-grow">
-                    <FormLabel>Max element value</FormLabel>
+                  <FormItem className=" flex-1 flex-grow">
+                    <FormLabel>Element value</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -118,7 +118,7 @@ export default function UploadGearForm() {
                 control={form.control}
                 name="price"
                 render={({ field }) => (
-                  <FormItem className="  flex-grow">
+                  <FormItem className=" flex-1 flex-grow">
                     <FormLabel>Price</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="200" {...field} />

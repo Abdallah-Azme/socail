@@ -4,15 +4,15 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import PetCards from "./pet-cards";
+import GearCards from "./gear-cards";
 
-export default async function Home() {
+export default async function GearPage() {
   const queryClient = new QueryClient();
 
   queryClient.prefetchInfiniteQuery({
-    queryKey: ["fetchPets"],
+    queryKey: ["fetchGear"],
     queryFn: async ({ pageParam = undefined }) => {
-      return fetchGet(`/pets?cursor=${pageParam}`);
+      return fetchGet(`/gears?cursor=${pageParam}`);
     },
     //@ts-ignore
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <PetCards />
+      <GearCards />
     </HydrationBoundary>
   );
 }

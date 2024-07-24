@@ -11,7 +11,7 @@ import { Separator } from "../ui/separator";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
-export default function DialogContentBody({
+export default function PetDialogContentBody({
   pet,
 }: {
   pet: PetTypeAllProperties;

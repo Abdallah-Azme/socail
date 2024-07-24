@@ -34,7 +34,7 @@ export default function RootLayout({
           <Header />
           <main className="flex relative ">
             <Sidebar />
-            <div className="container mx-auto max-w-[1400px] grid-cols-1">
+            <div className="container w-full max-w-screen mx-auto max-w-[1400px] grid-cols-1">
               {children}
             </div>
           </main>

@@ -1,3 +1,4 @@
+// pets types
 export type PetTypeAllProperties = {
   id: string;
   type: string;
@@ -33,4 +34,38 @@ export type PetType = {
   photos: {
     imageUrl: string;
   }[];
+};
+
+// gears types
+export type GearType = {
+  id: string;
+  gearType: string;
+  description: string;
+  characterClass: string;
+  element: string;
+  maxElementValue: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+};
+
+export type GearTypeAllProperties = {
+  id: string;
+  gearType: string;
+  description: string;
+  characterClass: string;
+  element: string;
+  maxElementValue: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+  gearOwner: {
+    id: string;
+    username: string;
+    characterName: string;
+    server: string;
+    contactInfo: string;
+  };
 };

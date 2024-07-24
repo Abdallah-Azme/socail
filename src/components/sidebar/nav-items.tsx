@@ -1,3 +1,4 @@
+"use client";
 import { listItems } from "@/constants";
 import Link from "next/link";
 import React from "react";
@@ -7,22 +8,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function NavItems() {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <ul className="flex pt-8 flex-col gap-y-4 m-2 items-center lg:items-start ">
       {listItems.map((item, i) => (
         <Link
-          className="text-xl w-full hover:bg-gray-700  px-2 pt-2 pb-1 rounded-lg hover:text-brand"
+          className={cn(
+            "text-xl w-full hover:bg-gray-700  px-2 pt-2 pb-1 rounded-lg hover:text-brand"
+          )}
           key={item.link}
           href={item.link}
         >
           <TooltipProvider delayDuration={100}>
             <Tooltip>
               <TooltipTrigger>
-                <li className="flex gap-4 items-center">
+                <li
+                  className={cn(
+                    "flex gap-4 items-center",
+                    item.link === pathname ? "text-brand" : ""
+                  )}
+                >
                   {<item.icon size={24} className="" />}
-                  <span className="hidden lg:block">{item.label}</span>
+                  <span className={cn("hidden lg:block")}>{item.label}</span>
                 </li>
               </TooltipTrigger>
               <TooltipContent

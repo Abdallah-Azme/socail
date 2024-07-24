@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { PetTypeAllProperties } from "@/constants/types";
 import Image from "next/image";
-export default function CarouselDialogCard({
+export default function PetCarouselDialogCard({
   pet,
 }: {
   pet: PetTypeAllProperties;
