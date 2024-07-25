@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 
 export default function NavItems() {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <ul className="flex pt-8 flex-col gap-y-4 m-2 items-center lg:items-start ">
       {listItems.map((item, i) => (
@@ -33,7 +32,14 @@ export default function NavItems() {
                     item.link === pathname ? "text-brand" : ""
                   )}
                 >
-                  {<item.icon size={24} className="" />}
+                  {
+                    <item.icon
+                      size={24}
+                      className={cn(
+                        item.link === pathname ? " color-brand text-brand" : ""
+                      )}
+                    />
+                  }
                   <span className={cn("hidden lg:block")}>{item.label}</span>
                 </li>
               </TooltipTrigger>

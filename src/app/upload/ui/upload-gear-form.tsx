@@ -9,16 +9,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-  characterClass,
   characterClassTypeArray,
   elementTypeArray,
   equipmentTypeArray,
-  gears,
   servers,
 } from "@/constants";
 import Image from "next/image";
 import { useState } from "react";
-import { getParsedType, z } from "zod";
+import { z } from "zod";
 import { Button } from "../../../components/ui/button";
 import {
   Select,
@@ -239,7 +237,7 @@ export default function UploadGearForm() {
                 <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Sell this gear or trade for higher elements same class."
+                    placeholder="Enter a description of the deal you are looking for, including the server you can trade on. If there is something specific you want to trade for, mention it here as well."
                     {...field}
                   />
                 </FormControl>

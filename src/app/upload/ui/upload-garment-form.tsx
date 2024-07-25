@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { petTypeArray, servers } from "@/constants";
+import { elementTypeArray, genderTypeArray, servers } from "@/constants";
 import Image from "next/image";
 import { useState } from "react";
 import { z } from "zod";
@@ -21,13 +21,17 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { Textarea } from "../../../components/ui/textarea";
-import { petSchema, usePetForm, usePostPetForm } from "../hooks/pet-hook";
+import {
+  garmentSchema,
+  useGarmentForm,
+  useGarmentPostForm,
+} from "../hooks/garment-hook";
 
-export default function UploadPetForm() {
+export default function UploadGarmentForm() {
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const { form } = usePetForm();
-  const { mutation } = usePostPetForm(form);
+  const { form } = useGarmentForm();
+  const { mutation } = useGarmentPostForm(form);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files || []);
@@ -37,7 +41,7 @@ export default function UploadPetForm() {
     setFilePreviews(previews);
   };
 
-  function onSubmit(values: z.infer<typeof petSchema>) {
+  function onSubmit(values: z.infer<typeof garmentSchema>) {
     mutation.mutate(values, {
       onSuccess: () => {
         setFiles([]);
@@ -50,96 +54,77 @@ export default function UploadPetForm() {
     <div className="">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-          <div className="flex flex-col lg:flex-row  gap-3">
-            <div className="flex gap-3 flex-grow">
-              {/* Star */}
-              <FormField
-                control={form.control}
-                name="star"
-                render={({ field }) => (
-                  <FormItem className=" flex-grow">
-                    <FormLabel>Stars</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="200" {...field} />
+          <div className="flex flex-row   gap-3">
+            {/* price */}
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem className=" flex-1 flex-grow">
+                  <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="200" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* gender */}
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem className="flex-1 flex-grow">
+                  <FormLabel>Gender</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl className="flex-1">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select garment gender" />
+                      </SelectTrigger>
                     </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* price */}
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem className="  flex-grow">
-                    <FormLabel>Price</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="200" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                    <SelectContent>
+                      {genderTypeArray.map((gender) => (
+                        <SelectItem key={gender} value={gender}>
+                          {gender}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {/* Server */}
-            <div className="flex gap-3 flex-grow">
-              <FormField
-                control={form.control}
-                name="server"
-                render={({ field }) => (
-                  <FormItem className="flex-1 flex-grow">
-                    <FormLabel>Server</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl className="flex-1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a server" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {servers.map((server) => (
-                          <SelectItem key={server} value={server}>
-                            {server}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* pet type */}
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem className="flex-1 flex-grow">
-                    <FormLabel>Pet type</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a pet type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {petTypeArray.map((petType) => (
-                          <SelectItem key={petType} value={petType}>
-                            {petType}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="server"
+              render={({ field }) => (
+                <FormItem className="flex-1 flex-grow">
+                  <FormLabel>Server</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl className="flex-1">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a server" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {servers.map((server) => (
+                        <SelectItem key={server} value={server}>
+                          {server}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           {/* title */}
           <FormField
@@ -149,7 +134,10 @@ export default function UploadPetForm() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Sell this pet." {...field} />
+                  <Input
+                    placeholder="Enter the garment name correctly so other players can find it."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

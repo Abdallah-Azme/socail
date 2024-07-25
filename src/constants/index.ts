@@ -361,25 +361,4 @@ export const characterClassTypeArray = [
   "RANGER",
 ];
 
-// {
-//   Equipment: {
-//     NECKLACE: 'NECKLACE',
-//     HELMET: 'HELMET',
-//     WEAPON: 'WEAPON',
-//     BRACELET: 'BRACELET',
-//     BOOTS: 'BOOTS',
-//     ARMOR: 'ARMOR'
-//   }
-// }
-// {
-//   CharacterClass: {
-//     MAGE: 'MAGE',
-//     WARRIOR: 'WARRIOR',
-//     NECROMANCER: 'NECROMANCER',
-//     PALADIN: 'PALADIN',
-//     VAMPIRE: 'VAMPIRE',
-//     SHADOWKNIGHT: 'SHADOWKNIGHT',
-//     SWORDMASTER: 'SWORDMASTER',
-//     RANGER: 'RANGER'
-//   }
-// }
+export const genderTypeArray = ["MALE", "FEMALE"];

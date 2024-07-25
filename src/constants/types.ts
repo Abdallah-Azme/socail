@@ -69,3 +69,36 @@ export type GearTypeAllProperties = {
     contactInfo: string;
   };
 };
+
+// garment types
+export type GarmentType = {
+  id: string;
+  description: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+  gender: Gender;
+};
+
+enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}
+
+export type GarmentTypeAllProperties = {
+  id: string;
+  description: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+  gender: Gender;
+  garmentOwner: {
+    id: string;
+    username: string;
+    characterName: string;
+    server: string;
+    contactInfo: string;
+  };
+};

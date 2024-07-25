@@ -14,7 +14,7 @@ export default function GearCarouselDialogCard({
 }) {
   return (
     <div className="relative w-full aspect-square">
-      <Image src={gear.photo} fill alt="Pet" className="object-contain" />
+      <Image src={gear.photo} fill alt="gear" className="object-contain" />
     </div>
   );
 }
