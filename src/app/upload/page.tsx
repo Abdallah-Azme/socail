@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UploadGarmentForm from "./ui/upload-garment-form";
 import UploadGearForm from "./ui/upload-gear-form";
 import UploadPetForm from "./ui/upload-pet-form";
+import UploadItemForm from "./ui/upload-item-form";
 
 export default function UploadPage() {
   return (
@@ -31,7 +32,7 @@ export default function UploadPage() {
       </TabsContent>
       <TabsContent value="item">
         <UploadCard>
-          <UploadPetForm />
+          <UploadItemForm />
         </UploadCard>
       </TabsContent>
     </Tabs>

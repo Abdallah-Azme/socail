@@ -26,8 +26,7 @@ export default function UploadCard({ children }: { children: ReactNode }) {
       </CardContent>
       <CardFooter>
         <p className="text-destructive">
-          Only game-related items are allowed to be shared here, so let's keep
-          this website safe and clean.
+          Only game-related items are allowed to be shared here.
         </p>
       </CardFooter>
     </Card>
