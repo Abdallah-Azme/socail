@@ -5,6 +5,7 @@ export default function ItemCarouselDialogCard({
 }: {
   item: ItemTypeAllProperties;
 }) {
+  //TODO might need to change the w and h of the image
   return (
     <div className="relative w-full aspect-square">
       <Image src={item.photo} fill alt="item" className="object-contain" />
