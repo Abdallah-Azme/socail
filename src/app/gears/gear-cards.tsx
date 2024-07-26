@@ -38,7 +38,7 @@ export default function GearCards() {
       onNextPage={
         !isFetchingNextPage && hasNextPage
           ? fetchNextPage
-          : () => console.log("there is nothing more to fetch")
+          : () =>{}
       }
     >
       <div className="mt-10 ">

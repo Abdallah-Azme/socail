@@ -14,7 +14,6 @@ export default function GarmentDialogCard({
 }) {
   const { openCardDialog, openCardId, closeCardDialog } = useStore();
   const isOpen = openCardId === garment.id;
-  console.log({ garment });
   const onToggleCardDialog = () => {
     if (openCardId) {
       closeCardDialog();

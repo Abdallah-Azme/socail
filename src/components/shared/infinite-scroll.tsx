@@ -11,10 +11,8 @@ export default function InfiniteScroll({
   const { ref, inView, entry } = useInView({
     rootMargin: "200px",
     onChange(inView) {
-      console.log(" on change got called");
       if (inView) {
         onNextPage();
-        console.log(" on change got called from the in view");
       }
     },
   });

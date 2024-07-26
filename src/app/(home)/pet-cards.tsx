@@ -35,11 +35,7 @@ export default function PetCards() {
 
   return (
     <InfiniteScroll
-      onNextPage={
-        !isFetchingNextPage && hasNextPage
-          ? fetchNextPage
-          : () => console.log("there is nothing more to fetch")
-      }
+      onNextPage={!isFetchingNextPage && hasNextPage ? fetchNextPage : () => {}}
     >
       <div className="mt-10 ">
         <div className="grid relative md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 flex-wrap gap-6 justify-center items-center">
