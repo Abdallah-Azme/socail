@@ -5,8 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_BASE_BACKEND_URL;
-
+const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_BASE_BACKEND_URL + "/api/v1";
+console.log(BASE_BACKEND_URL);
 export const fetchGet = async (url: string) => {
   try {
     const response = await fetch(BASE_BACKEND_URL + url, {
