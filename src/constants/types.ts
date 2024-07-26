@@ -102,3 +102,29 @@ export type GarmentTypeAllProperties = {
     contactInfo: string;
   };
 };
+// item types
+export type ItemType = {
+  id: string;
+  description: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+  quantity: number;
+};
+
+export type ItemTypeAllProperties = {
+  id: string;
+  description: string;
+  price: number;
+  server: string;
+  title: string;
+  photo: string;
+  itemOwner: {
+    id: string;
+    username: string;
+    characterName: string;
+    server: string;
+    contactInfo: string;
+  };
+};

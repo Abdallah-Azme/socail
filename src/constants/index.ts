@@ -19,7 +19,7 @@ export const listItems = [
   {
     label: "Items",
     icon: Store,
-    link: "/item",
+    link: "/items",
   },
 ];
 
