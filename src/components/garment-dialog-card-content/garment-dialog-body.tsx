@@ -11,10 +11,11 @@ export default function GarmentDialogBody({
   garment: GarmentType;
   isOpen: boolean;
 }) {
+  console.log({ garment });
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["fetch-garment", garment.id],
     queryFn: async () => fetchGet(`/garments/${garment.id}`),
-    enabled: isOpen,
+    // enabled: isOpen,
   });
   if (isLoading) {
     return <span>Loading...</span>;
@@ -23,7 +24,7 @@ export default function GarmentDialogBody({
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-
+  console.log("data", data.data);
   return (
     <>
       <GarmentCarouselDialogCard garment={data.data} />
