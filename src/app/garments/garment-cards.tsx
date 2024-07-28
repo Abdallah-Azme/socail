@@ -1,6 +1,8 @@
 "use client";
 import GarmentDialogCard from "@/components/garment-dialog-card-content/garment-dialog-card";
 import GearDialogCard from "@/components/gear-dialog-card-content/gear-dialog-card";
+import CardSkeleton from "@/components/shared/card-skeleton";
+import FailedFetchingMessage from "@/components/shared/faield-fetch-message";
 import InfiniteScroll from "@/components/shared/infinite-scroll";
 import { GarmentType, GearType, PetType } from "@/constants/types";
 import { fetchGet } from "@/lib/utils";
@@ -25,11 +27,11 @@ export default function GarmentCards() {
   });
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <CardSkeleton />;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <FailedFetchingMessage />;
   }
 
   const allGarments = data.pages.flatMap((page) => page.data) as GarmentType[];

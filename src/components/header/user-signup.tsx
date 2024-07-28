@@ -23,6 +23,7 @@ import { fetchPost } from "@/lib/utils";
 import { useStore } from "@/store/store";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -32,10 +33,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import UserAvatar from "./user-avatar";
 import { Separator } from "../ui/separator";
 import { useToast } from "../ui/use-toast";
-
+const fileSchema = z
+  .instanceof(File)
+  .refine((file) => file.type.startsWith("image/"), {
+    message: "Invalid file type. Only images are allowed.",
+  })
+  .refine((file) => file.size <= 1 * 1024 * 1024, {
+    message: "File size too large. Maximum size is 1MB per file.",
+  });
 const formSchema = z.object({
   email: z
     .string()
@@ -61,10 +68,15 @@ const formSchema = z.object({
     .string()
     .min(2, "server is required")
     .max(30, "Enter a valid server."),
+  photos: z
+    .array(fileSchema)
+    .nonempty({ message: "At least one photo is required" }),
 });
 
 export default function UserSignup() {
   const { toast } = useToast();
+  const [files, setFiles] = useState<File[]>([]);
+
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: object) => fetchPost("/users/signup", data),
@@ -98,6 +110,7 @@ export default function UserSignup() {
       contactInfo: "",
       server: "",
       username: "",
+      photos: undefined,
     },
   });
 
@@ -109,7 +122,11 @@ export default function UserSignup() {
     closeSignupDialog();
     openSigninDialog();
   }
-
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(event.target.files || []);
+    setFiles(selectedFiles);
+    form.setValue("photos", selectedFiles as [File, ...File[]]);
+  };
   return (
     <Dialog
       open={isSignupDialogOpen}
@@ -236,6 +253,25 @@ export default function UserSignup() {
                 )}
               />
             </div>
+            {/* photos */}
+            <FormField
+              control={form.control}
+              name="photos"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Character photo</FormLabel>
+                  <FormControl>
+                    <Input
+                      onChange={handleFileChange}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button className="w-full mt-2">Sign Up</Button>
           </form>
         </Form>

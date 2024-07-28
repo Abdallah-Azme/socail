@@ -1,6 +1,8 @@
 "use client";
 import GearDialogCard from "@/components/gear-dialog-card-content/gear-dialog-card";
 import ItemDialogCard from "@/components/item-dialog-card-content/item-dialog-card";
+import CardSkeleton from "@/components/shared/card-skeleton";
+import FailedFetchingMessage from "@/components/shared/faield-fetch-message";
 import InfiniteScroll from "@/components/shared/infinite-scroll";
 import { GearType, ItemType, PetType } from "@/constants/types";
 import { fetchGet } from "@/lib/utils";
@@ -25,11 +27,11 @@ export default function ItemCards() {
   });
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <CardSkeleton />;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <FailedFetchingMessage />;
   }
 
   const allItems = data.pages.flatMap((page) => page.data) as ItemType[];

@@ -1,13 +1,10 @@
-import Logo from "@/components/logo";
-import { Separator } from "../ui/separator";
-import SearchNavbar from "./search-navbar";
-import UserLogin from "./user-signup";
-import { cookies } from "next/headers";
 import { auth } from "@/actions/auth";
-import { Avatar } from "../ui/avatar";
-import UserAvatar from "../shared/user-avatar";
-import UserAuth from "./user-auth";
+import Logo from "@/components/logo";
+import { cookies } from "next/headers";
 import AlertWarring from "../alert-warrning";
+import { Separator } from "../ui/separator";
+import UserAuth from "./user-auth";
+import { fetchGet } from "@/lib/utils";
 
 export default async function Header() {
   const email = await auth(cookies().get("refreshToken")?.value);

@@ -1,5 +1,7 @@
 "use client";
 import GearDialogCard from "@/components/gear-dialog-card-content/gear-dialog-card";
+import CardSkeleton from "@/components/shared/card-skeleton";
+import FailedFetchingMessage from "@/components/shared/faield-fetch-message";
 import InfiniteScroll from "@/components/shared/infinite-scroll";
 import { GearType, PetType } from "@/constants/types";
 import { fetchGet } from "@/lib/utils";
@@ -24,22 +26,18 @@ export default function GearCards() {
   });
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <CardSkeleton />;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <FailedFetchingMessage />;
   }
 
   const allGears = data.pages.flatMap((page) => page.data) as GearType[];
 
   return (
     <InfiniteScroll
-      onNextPage={
-        !isFetchingNextPage && hasNextPage
-          ? fetchNextPage
-          : () =>{}
-      }
+      onNextPage={!isFetchingNextPage && hasNextPage ? fetchNextPage : () => {}}
     >
       <div className="mt-10 ">
         <div className="grid relative md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 flex-wrap gap-6 justify-center items-center">

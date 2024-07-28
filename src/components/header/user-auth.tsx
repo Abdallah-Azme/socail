@@ -13,7 +13,7 @@ export default function UserAuth({ email }: { email: string | null }) {
       {email ? (
         <div className="flex gap-3">
           <UploadButton />
-          <UserAvatar />
+          <UserAvatar email={email} />
         </div>
       ) : (
         <>
